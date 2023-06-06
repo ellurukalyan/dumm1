@@ -1,34 +1,37 @@
-apiVersion: v1
-kind: Service
-metadata:
-  name: my-nginx-svc
-  labels:
-    app: nginx
-spec:
-  type: LoadBalancer
-  ports:
-  - port: 80
-  selector:
-    app: nginx
----
 apiVersion: apps/v1
 kind: Deployment
 metadata:
-  name: my-nginx
+  annotations:
+    artifact.spinnaker.io/location: default
+    artifact.spinnaker.io/name: nginx
+    artifact.spinnaker.io/type: kubernetes/deployment
+    artifact.spinnaker.io/version: ''
+    moniker.spinnaker.io/application: spinnaker
+    moniker.spinnaker.io/cluster: deployment nginx
   labels:
-    app: nginx
+    app.kubernetes.io/managed-by: spinnaker
+    app.kubernetes.io/name: spinnaker
+  name: nginx
+  namespace: nginx-dev
 spec:
-  replicas: 4
+  replicas: 3
   selector:
     matchLabels:
       app: nginx
   template:
     metadata:
+      annotations:
+        artifact.spinnaker.io/location: default
+        artifact.spinnaker.io/name: nginx
+        artifact.spinnaker.io/type: kubernetes/deployment
+        artifact.spinnaker.io/version: ''
+        moniker.spinnaker.io/application: spinnaker
+        moniker.spinnaker.io/cluster: deployment nginx
       labels:
         app: nginx
+        app.kubernetes.io/managed-by: spinnaker
+        app.kubernetes.io/name: spinnaker
     spec:
       containers:
-      - name: nginx
-        image: nginx:1.14.2
-        ports:
-        - containerPort: 80
+        - image: nginx
+          name: nginx-container
