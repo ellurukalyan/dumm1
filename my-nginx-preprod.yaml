@@ -1,0 +1,37 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  annotations:
+    artifact.spinnaker.io/location: default
+    artifact.spinnaker.io/name: nginx
+    artifact.spinnaker.io/type: kubernetes/deployment
+    artifact.spinnaker.io/version: ''
+    moniker.spinnaker.io/application: spinnaker
+    moniker.spinnaker.io/cluster: deployment nginx
+  labels:
+    app.kubernetes.io/managed-by: spinnaker
+    app.kubernetes.io/name: spinnaker
+  name: nginx
+  namespace: nginx-preprod
+spec:
+  replicas: 2
+  selector:
+    matchLabels:
+      app: nginx
+  template:
+    metadata:
+      annotations:
+        artifact.spinnaker.io/location: default
+        artifact.spinnaker.io/name: nginx
+        artifact.spinnaker.io/type: kubernetes/deployment
+        artifact.spinnaker.io/version: ''
+        moniker.spinnaker.io/application: spinnaker
+        moniker.spinnaker.io/cluster: deployment nginx
+      labels:
+        app: nginx
+        app.kubernetes.io/managed-by: spinnaker
+        app.kubernetes.io/name: spinnaker
+    spec:
+      containers:
+        - image: nginx
+          name: nginx-container
