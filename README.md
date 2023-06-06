@@ -1,3 +1,3 @@
 # dumm1
 
-Some changes 
+Some changes to deploly in Spinnaker
